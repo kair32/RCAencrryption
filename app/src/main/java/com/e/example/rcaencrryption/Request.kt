@@ -1,9 +1,10 @@
 package com.e.example.rcaencrryption
 
 import com.vk.api.sdk.requests.VKRequest
+import org.json.JSONArray
 import org.json.JSONObject
 
-class VKUsersRequest: VKRequest<List<VKMyProfile>> {
+class VKUsersRequest: VKRequest<VKMyProfile> {
     constructor(uids: IntArray = intArrayOf()): super("users.get") {
         if (uids.isNotEmpty()) {
             addParam("user_id", uids.joinToString(""))
@@ -12,16 +13,13 @@ class VKUsersRequest: VKRequest<List<VKMyProfile>> {
         addParam("name_case", "Nom")
     }
 
-    override fun parse(r: JSONObject): List<VKMyProfile> {
+    override fun parse(r: JSONObject): VKMyProfile {
         val users = r.getJSONArray("response")
-        val result = ArrayList<VKMyProfile>()
-        for (i in 0 until users.length()) {
-            result.add(VKMyProfile(users.getJSONObject(i).getInt("id"),
-                users.getJSONObject(i).getString("photo_200"),
-                users.getJSONObject(i).getString("first_name"),
-                users.getJSONObject(i).getString("last_name"),
-                users.getJSONObject(i).getString("status")))
-        }
+        val result = VKMyProfile(users.getJSONObject(0).getInt("id"),
+                users.getJSONObject(0).getString("photo_200"),
+                users.getJSONObject(0).getString("first_name"),
+                users.getJSONObject(0).getString("last_name"),
+                users.getJSONObject(0).getString("status"))
         return result
     }
 }
@@ -32,7 +30,7 @@ class VKFriendsRequest: VKRequest<VKFriends> {
         MYProfile?.myId?.let { addParam("user_id", it) }
         addParam("order", "hints")
         addParam("fields", "photo_200")
-        addParam("count", "15")
+        addParam("count", "25")
     }
 
     override fun parse(r: JSONObject): VKFriends {

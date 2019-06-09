@@ -3,17 +3,12 @@ package com.e.example.rcaencrryption
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import android.support.v4.widget.DrawerLayout
-import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.Menu
+import com.e.example.rcaencrryption.fragments.FragmentChat
+import com.e.example.rcaencrryption.fragments.FragmentFriends
+import com.e.example.rcaencrryption.fragments.FragmentMyProfile
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKTokenExpiredHandler
 import com.vk.api.sdk.auth.VKAccessToken
@@ -45,7 +40,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val mFragmentManager = supportFragmentManager.beginTransaction()
                 mFragmentManager.replace(R.id.fragment, FragmentFriends()).commit()
             }
-            R.id.nav_message -> {
+            R.id.nav_chat -> {
+                val mFragmentManager = supportFragmentManager.beginTransaction()
+                mFragmentManager.replace(R.id.fragment, FragmentChat()).commit()
             }
             R.id.nav_profil -> {
                 val mFragmentManager = supportFragmentManager.beginTransaction()
@@ -54,7 +51,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         return true
     }
-
 
     private val tokenTracker = object: VKTokenExpiredHandler {
         override fun onTokenExpired() {

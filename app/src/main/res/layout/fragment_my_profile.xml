@@ -20,8 +20,8 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             android:id="@+id/circleImageView2"
             android:src="@drawable/user_avatar"
-            app:loadImage="@{item.myPhoto200}"
-/>
+            app:loadImage="@{item.myPhoto200}"/>
+
     <android.support.v7.widget.Toolbar
             android:layout_width="0dp"
             android:layout_height="wrap_content"
